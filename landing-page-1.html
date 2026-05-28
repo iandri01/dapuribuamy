@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebKilat – Landing Page Siap Iklan & Siap Closing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #05080f;
+      --surface:  #0d1321;
+      --card:     #111827;
+      --border:   rgba(255,255,255,0.06);
+      --accent:   #f97316;
+      --accent2:  #fb923c;
+      --green:    #22d3a4;
+      --text:     #e2e8f0;
+      --muted:    #64748b;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 40px;
+      background: rgba(5,8,15,.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+
+    /* ── FLOATING WA BUTTON ── */
+    .wa-float {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: #25D366;
+      color: #fff;
+      padding: 13px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .95rem;
+      box-shadow: 0 6px 24px rgba(37,211,102,.45);
+      z-index: 999;
+      display: flex; align-items: center; gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+      animation: waPulse 2.5s ease-in-out infinite;
+    }
+    .wa-float:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 32px rgba(37,211,102,.6);
+      animation: none;
+    }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,.45); }
+      50%       { box-shadow: 0 6px 36px rgba(37,211,102,.7); }
+    }
+
+    nav a.nav-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 9px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: background .2s, transform .15s;
+    }
+    nav a.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    /* glow orbs */
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(249,115,22,.18) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(249,115,22,.12);
+      border: 1px solid rgba(249,115,22,.3);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .5px;
+      margin-bottom: 28px;
+      animation: fadeUp .6s ease both;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: #fff;
+      max-width: 860px;
+      animation: fadeUp .7s .1s ease both;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--accent), #fbbf24);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      max-width: 560px;
+      margin: 22px auto 36px;
+      font-weight: 300;
+      animation: fadeUp .7s .2s ease both;
+    }
+
+    .hero-cta-group {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      justify-content: center;
+      animation: fadeUp .7s .3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent);
+      color: #fff; font-size: 1rem; font-weight: 600;
+      padding: 15px 32px; border-radius: 8px;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(249,115,22,.35);
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(249,115,22,.5);
+    }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #cbd5e1; font-size: 1rem; font-weight: 400;
+      padding: 15px 28px; border-radius: 8px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.2); color: #fff; }
+
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center;
+      margin-top: 40px;
+      animation: fadeUp .7s .4s ease both;
+    }
+    .hero-pill {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px; font-size: .82rem; color: #94a3b8;
+    }
+    .hero-pill span { font-size: 1rem; }
+
+    /* ── SOCIAL PROOF BAR ── */
+    .proof-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .proof-bar-inner {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+      gap: 32px; max-width: 900px; margin: auto;
+    }
+    .proof-stat { text-align: center; }
+    .proof-stat .num {
+      font-family: var(--font-head);
+      font-size: 1.7rem; font-weight: 800;
+      color: var(--accent);
+      display: block;
+    }
+    .proof-stat .label { font-size: .8rem; color: var(--muted); }
+    .proof-divider { width: 1px; height: 40px; background: var(--border); }
+
+    /* ── SECTION WRAPPER ── */
+    section { position: relative; z-index: 1; }
+    .wrap { max-width: 1000px; margin: auto; padding: 80px 24px; }
+    .section-tag {
+      display: inline-block;
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.8px;
+      color: #fff; line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.05rem; color: #64748b;
+      font-weight: 300; max-width: 520px;
+      margin-bottom: 48px;
+    }
+
+    /* ── PROBLEM ── */
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .prob-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      position: relative; overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .prob-card:hover { border-color: rgba(249,115,22,.3); transform: translateY(-3px); }
+    .prob-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0; transition: opacity .2s;
+    }
+    .prob-card:hover::before { opacity: 1; }
+    .prob-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .prob-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .prob-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── SOLUTION ── */
+    .solution-bg {
+      background: linear-gradient(180deg, var(--bg) 0%, #0c1220 50%, var(--bg) 100%);
+    }
+    .sol-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .sol-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px 28px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: border-color .2s, transform .2s;
+    }
+    .sol-card:hover { border-color: rgba(34,211,164,.25); transform: translateY(-2px); }
+    .sol-num {
+      font-family: var(--font-head);
+      font-size: .75rem; font-weight: 800;
+      color: var(--green);
+      background: rgba(34,211,164,.1);
+      border: 1px solid rgba(34,211,164,.2);
+      border-radius: 6px;
+      width: 32px; height: 32px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sol-card h3 { font-family: var(--font-head); font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .sol-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── PORTFOLIO ── */
+    .port-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .port-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .port-card:hover { border-color: rgba(249,115,22,.3); transform: translateY(-4px); }
+    .port-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+    .port-thumb-klinik { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+    .port-thumb-fnb    { background: linear-gradient(135deg, #1a0000, #3d0000, #6b0000); }
+    .port-thumb-jasa   { background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e); }
+    .port-info { padding: 20px 22px; }
+    .port-info h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .port-info p { font-size: .82rem; color: var(--muted); }
+    .port-tag {
+      display: inline-block;
+      background: rgba(249,115,22,.12); color: var(--accent);
+      font-size: .72rem; padding: 3px 10px; border-radius: 100px;
+      margin-top: 10px;
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      transition: transform .2s;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #1a1412, var(--card));
+    }
+    .featured-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff; font-size: .72rem; font-weight: 700;
+      padding: 4px 16px; border-radius: 100px; letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .price-card h3 {
+      font-family: var(--font-head); font-size: 1.1rem; font-weight: 700;
+      color: #fff; margin-bottom: 8px;
+    }
+    .price-amount {
+      font-family: var(--font-head); font-size: 2.2rem; font-weight: 800;
+      color: var(--accent); margin: 12px 0 4px;
+    }
+    .price-desc { font-size: .85rem; color: var(--muted); margin-bottom: 24px; }
+    .price-features { list-style: none; }
+    .price-features li {
+      font-size: .9rem; color: #94a3b8;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 10px; align-items: center;
+    }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .price-cta {
+      display: block; text-align: center;
+      margin-top: 28px;
+      background: var(--accent); color: #fff;
+      padding: 13px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: .95rem;
+      transition: background .2s;
+    }
+    .price-cta:hover { background: var(--accent2); }
+    .price-cta.ghost {
+      background: transparent; border: 1px solid var(--border); color: #94a3b8;
+    }
+    .price-cta.ghost:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+
+    /* ── PROCESS ── */
+    .process-track {
+      display: flex; gap: 0;
+      position: relative;
+    }
+    .process-track::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 28px; right: 28px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      z-index: 0;
+    }
+    .proc-step {
+      flex: 1; text-align: center; position: relative; z-index: 1; padding: 0 12px;
+    }
+    .proc-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      font-family: var(--font-head); font-weight: 800;
+      font-size: 1.1rem; color: var(--accent);
+    }
+    .proc-step h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .proc-step p { font-size: .82rem; color: var(--muted); }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px 28px;
+      position: relative;
+      transition: border-color .2s;
+    }
+    .testi-card:hover { border-color: rgba(255,255,255,.15); }
+    .testi-quote {
+      font-size: 3rem; color: var(--accent);
+      font-family: Georgia, serif; line-height: 1;
+      margin-bottom: 12px; opacity: .5;
+    }
+    .testi-text {
+      font-size: .95rem; color: #cbd5e1;
+      line-height: 1.7; font-style: italic;
+      margin-bottom: 20px;
+    }
+    .testi-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--accent), #fbbf24);
+      font-weight: 700; color: #fff; font-family: var(--font-head);
+    }
+    .testi-name { font-weight: 600; font-size: .9rem; color: #fff; }
+    .testi-role { font-size: .78rem; color: var(--muted); }
+    .stars { color: #fbbf24; font-size: .9rem; letter-spacing: 1px; margin-bottom: 14px; }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cta-inner {
+      max-width: 700px; margin: auto;
+      padding: 90px 24px;
+      text-align: center;
+    }
+    .cta-inner .section-title { margin-bottom: 14px; }
+    .cta-inner p { font-size: 1.05rem; color: var(--muted); margin-bottom: 36px; }
+    .cta-urgency {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .83rem; color: #ef4444;
+      margin-top: 20px;
+    }
+    .cta-urgency::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: #ef4444;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: .82rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer strong { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.8); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .problem-grid, .sol-grid, .port-grid,
+      .pricing-grid, .testi-grid { grid-template-columns: 1fr; }
+      .process-track { flex-direction: column; gap: 28px; }
+      .process-track::before { display: none; }
+      .proof-bar-inner { gap: 20px; }
+      .proof-divider { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Web<span>Kilat</span></div>
+    <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih" class="nav-cta" target="_blank">Konsultasi Gratis →</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Siap Iklan · Pengerjaan 1–3 Hari
+    </div>
+
+    <h1>
+      Website yang Bikin <em>Closing,</em><br>
+      Bukan Sekadar Tampilan
+    </h1>
+
+    <p class="hero-sub">
+      Kami bantu bisnis & UMKM punya landing page siap iklan
+      yang menghasilkan leads nyata — mulai dari Rp 999.000.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih" class="btn-primary" target="_blank">
+        💬 Konsultasi Gratis Sekarang
+      </a>
+      <a href="#portfolio" class="btn-ghost">
+        Lihat Contoh Website ↓
+      </a>
+    </div>
+
+    <p style="margin-top:14px; font-size:13px; opacity:.7; animation: fadeUp .7s .35s ease both;">
+      ⚡ Respon cepat &nbsp;•&nbsp; Tanpa ribet &nbsp;•&nbsp; Konsultasi gratis
+    </p>
+    <p style="color:#f97316; font-weight:700; font-size:.88rem; margin-top:8px; animation: fadeUp .7s .4s ease both;">
+      ⚠️ Slot terbatas minggu ini
+    </p>
+
+    <div class="hero-pills">
+      <div class="hero-pill"><span>⚡</span> Pengerjaan Cepat</div>
+      <div class="hero-pill"><span>📱</span> Mobile Friendly</div>
+      <div class="hero-pill"><span>📈</span> Fokus Conversion</div>
+      <div class="hero-pill"><span>🔁</span> Revisi Gratis</div>
+    </div>
+
+    <p style="margin-top:18px; font-size:13px; color:#64748b; animation: fadeUp .7s .5s ease both;">
+      Sudah membantu <strong style="color:#94a3b8;">200+ bisnis & UMKM</strong> membuat website siap jualan
+    </p>
+  </div>
+
+  <!-- PROOF BAR -->
+  <div class="proof-bar">
+    <div class="proof-bar-inner">
+      <div class="proof-stat">
+        <span class="num">200+</span>
+        <span class="label">Klien Puas</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-stat">
+        <span class="num">1–3</span>
+        <span class="label">Hari Pengerjaan</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-stat">
+        <span class="num">3×</span>
+        <span class="label">Rata-rata Kenaikan Leads</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-stat">
+        <span class="num">100%</span>
+        <span class="label">Siap Google Ads</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="wrap">
+      <p class="section-tag">Masalah Umum</p>
+      <h2 class="section-title reveal">Kenapa Website Kamu<br>Belum Menghasilkan?</h2>
+      <p class="section-sub reveal">Banyak bisnis punya website, tapi nol leads. Ini bukan salah produkmu.</p>
+
+      <div class="problem-grid">
+        <div class="prob-card reveal">
+          <span class="prob-icon">😤</span>
+          <h3>Website Bagus, Tapi Nol Penjualan</h3>
+          <p>Tampilan oke, tapi tidak dirancang untuk konversi. Pengunjung datang, lalu pergi.</p>
+        </div>
+        <div class="prob-card reveal">
+          <span class="prob-icon">💸</span>
+          <h3>Iklan Jalan, Leads Tidak Ada</h3>
+          <p>Budget iklan habis tapi form tidak ada yang isi. Landing page-mu mungkin masalahnya.</p>
+        </div>
+        <div class="prob-card reveal">
+          <span class="prob-icon">⏳</span>
+          <h3>Developer Lama & Mahal</h3>
+          <p>Nunggu berminggu-minggu, revisi ribut, harga tidak transparan. Melelahkan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="solution-bg">
+    <div class="wrap">
+      <p class="section-tag">Solusi Kami</p>
+      <h2 class="section-title reveal">Landing Page yang Dirancang<br>untuk <em style="color:var(--green)">Closing</em></h2>
+      <p class="section-sub reveal">Bukan sekadar cantik — setiap elemen kami desain untuk mendorong aksi.</p>
+
+      <div class="sol-grid">
+        <div class="sol-card reveal">
+          <div class="sol-num">01</div>
+          <div>
+            <h3>Desain Fokus Conversion</h3>
+            <p>Headline kuat, CTA strategis, dan alur halaman yang membimbing pengunjung ke aksi yang kamu inginkan.</p>
+          </div>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">02</div>
+          <div>
+            <h3>Pengerjaan 1–3 Hari Kerja</h3>
+            <p>Tidak perlu nunggu berminggu-minggu. Website kamu siap tayang dalam waktu kilat.</p>
+          </div>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">03</div>
+          <div>
+            <h3>Struktur Siap Google & Meta Ads</h3>
+            <p>Kecepatan loading optimal, pixel tracking siap, dan struktur halaman yang disukai algoritma iklan.</p>
+          </div>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">04</div>
+          <div>
+            <h3>Revisi Sampai Puas</h3>
+            <p>Tidak ada biaya revisi tersembunyi. Kamu dapat revisi gratis sampai benar-benar puas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KENAPA PILIH KAMI -->
+  <section>
+    <div class="wrap" style="padding-bottom:20px;">
+      <p class="section-tag">Alasan Pilih Kami</p>
+      <h2 class="section-title reveal">Kenapa 200+ Bisnis<br>Percayakan ke WebKilat?</h2>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="why-grid">
+        <div class="prob-card reveal" style="border-color:rgba(249,115,22,.15);">
+          <span class="prob-icon">⚡</span>
+          <h3>Cepat</h3>
+          <p>Website selesai <strong style="color:#e2e8f0;">1–3 hari kerja</strong>. Tidak perlu nunggu berminggu-minggu seperti developer biasa.</p>
+        </div>
+        <div class="prob-card reveal" style="border-color:rgba(249,115,22,.15);">
+          <span class="prob-icon">💰</span>
+          <h3>Terjangkau</h3>
+          <p>Mulai <strong style="color:#e2e8f0;">Rp 999.000</strong> sudah dapat landing page profesional siap iklan. Tidak ada biaya tersembunyi.</p>
+        </div>
+        <div class="prob-card reveal" style="border-color:rgba(249,115,22,.15);">
+          <span class="prob-icon">😌</span>
+          <h3>Ga Ribet</h3>
+          <p>Kamu cukup <strong style="color:#e2e8f0;">cerita bisnis kamu</strong>. Kami yang urus desain, revisi, sampai launch. Anti drama.</p>
+        </div>
+      </div>
+
+      <!-- social proof inline -->
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;" class="reveal">
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(34,211,164,.07);border:1px solid rgba(34,211,164,.15);border-radius:8px;padding:10px 16px;">
+          <span style="font-size:1.2rem;">✅</span>
+          <span style="font-size:.85rem;color:#94a3b8;">Dipercaya <strong style="color:#e2e8f0;">200+ bisnis kecil</strong></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(34,211,164,.07);border:1px solid rgba(34,211,164,.15);border-radius:8px;padding:10px 16px;">
+          <span style="font-size:1.2rem;">✅</span>
+          <span style="font-size:.85rem;color:#94a3b8;">Website selesai <strong style="color:#e2e8f0;">rata-rata 2 hari</strong></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(34,211,164,.07);border:1px solid rgba(34,211,164,.15);border-radius:8px;padding:10px 16px;">
+          <span style="font-size:1.2rem;">✅</span>
+          <span style="font-size:.85rem;color:#94a3b8;"><strong style="color:#e2e8f0;">100% siap</strong> Google & Meta Ads</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="wrap">
+      <p class="section-tag">Portfolio</p>
+      <h2 class="section-title reveal">Contoh Website<br>yang Sudah Kami Buat</h2>
+      <p class="section-sub reveal">Dari klinik sampai F&B — visual nyata, bukan mockup asal-asalan.</p>
+
+      <div class="port-grid">
+
+        <!-- CARD 1: KLINIK -->
+        <div class="port-card reveal">
+          <div class="port-thumb port-thumb-klinik">
+            <!-- browser chrome -->
+            <div style="position:absolute;top:0;left:0;right:0;height:28px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 10px;gap:5px;border-radius:14px 14px 0 0;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#fbbf24;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:block;"></span>
+              <span style="flex:1;height:14px;background:rgba(255,255,255,.08);border-radius:4px;margin-left:6px;"></span>
+            </div>
+            <!-- mock page content -->
+            <div style="position:absolute;top:36px;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.05);border-radius:6px;padding:10px;overflow:hidden;">
+              <div style="width:60%;height:10px;background:rgba(255,255,255,.3);border-radius:3px;margin-bottom:7px;"></div>
+              <div style="width:85%;height:6px;background:rgba(255,255,255,.12);border-radius:3px;margin-bottom:5px;"></div>
+              <div style="width:70%;height:6px;background:rgba(255,255,255,.12);border-radius:3px;margin-bottom:12px;"></div>
+              <div style="width:110px;height:22px;background:#f97316;border-radius:5px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:8px;color:#fff;font-weight:700;">Konsultasi Gratis</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;">
+                <div style="height:36px;background:rgba(255,255,255,.08);border-radius:4px;"></div>
+                <div style="height:36px;background:rgba(255,255,255,.08);border-radius:4px;"></div>
+                <div style="height:36px;background:rgba(255,255,255,.08);border-radius:4px;"></div>
+              </div>
+            </div>
+            <span style="position:absolute;bottom:18px;right:14px;font-size:2rem;">🏥</span>
+          </div>
+          <div class="port-info">
+            <h3>Landing Page Klinik Kecantikan</h3>
+            <p>Leads meningkat <strong style="color:#22d3a4;">4×</strong> dalam 2 minggu pertama setelah iklan jalan.</p>
+            <span class="port-tag">Klinik & Kesehatan</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: F&B -->
+        <div class="port-card reveal">
+          <div class="port-thumb port-thumb-fnb">
+            <div style="position:absolute;top:0;left:0;right:0;height:28px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 10px;gap:5px;border-radius:14px 14px 0 0;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#fbbf24;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:block;"></span>
+              <span style="flex:1;height:14px;background:rgba(255,255,255,.08);border-radius:4px;margin-left:6px;"></span>
+            </div>
+            <div style="position:absolute;top:36px;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.05);border-radius:6px;padding:10px;overflow:hidden;">
+              <div style="width:50%;height:12px;background:rgba(255,200,100,.4);border-radius:3px;margin-bottom:7px;"></div>
+              <div style="width:90%;height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:4px;"></div>
+              <div style="width:75%;height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:10px;"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px;">
+                <div style="height:28px;background:rgba(255,100,0,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;">🍜</span></div>
+                <div style="height:28px;background:rgba(255,100,0,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;"><span style="font-size:10px;">🍔</span></div>
+              </div>
+              <div style="width:100px;height:18px;background:#f97316;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:7px;color:#fff;font-weight:700;">Pesan Sekarang</span>
+              </div>
+            </div>
+            <span style="position:absolute;bottom:18px;right:14px;font-size:2rem;">🍜</span>
+          </div>
+          <div class="port-info">
+            <h3>Website Restoran & Catering</h3>
+            <p>Menu online, reservasi, & Google Maps — semua terintegrasi rapi.</p>
+            <span class="port-tag">F&B</span>
+          </div>
+        </div>
+
+        <!-- CARD 3: JASA -->
+        <div class="port-card reveal">
+          <div class="port-thumb port-thumb-jasa">
+            <div style="position:absolute;top:0;left:0;right:0;height:28px;background:rgba(0,0,0,.4);display:flex;align-items:center;padding:0 10px;gap:5px;border-radius:14px 14px 0 0;">
+              <span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#fbbf24;display:block;"></span>
+              <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:block;"></span>
+              <span style="flex:1;height:14px;background:rgba(255,255,255,.08);border-radius:4px;margin-left:6px;"></span>
+            </div>
+            <div style="position:absolute;top:36px;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.05);border-radius:6px;padding:10px;overflow:hidden;">
+              <div style="width:70%;height:10px;background:rgba(100,180,255,.3);border-radius:3px;margin-bottom:7px;"></div>
+              <div style="width:90%;height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:4px;"></div>
+              <div style="width:60%;height:5px;background:rgba(255,255,255,.1);border-radius:3px;margin-bottom:12px;"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:8px;">
+                <div style="height:22px;background:rgba(255,255,255,.07);border-radius:3px;"></div>
+                <div style="height:22px;background:rgba(255,255,255,.07);border-radius:3px;"></div>
+                <div style="height:22px;background:rgba(255,255,255,.07);border-radius:3px;"></div>
+              </div>
+              <div style="width:110px;height:18px;background:#f97316;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:7px;color:#fff;font-weight:700;">Minta Penawaran</span>
+              </div>
+            </div>
+            <span style="position:absolute;bottom:18px;right:14px;font-size:2rem;">🛠️</span>
+          </div>
+          <div class="port-info">
+            <h3>Website Jasa Renovasi</h3>
+            <p>Leads dari konsultasi naik signifikan setelah redesign halaman utama.</p>
+            <span class="port-tag">Jasa & Kontraktor</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MID-PAGE CTA (pressure di tengah) -->
+      <div style="margin-top:52px;text-align:center;" class="reveal">
+        <p style="font-size:.9rem;color:#64748b;margin-bottom:6px;">Tertarik lihat preview untuk bisnis kamu?</p>
+        <div style="margin:12px 0;">
+          <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih"
+             class="btn-primary" target="_blank">
+            💬 Konsultasi Gratis Sekarang
+          </a>
+        </div>
+        <p style="color:#f97316;font-weight:700;font-size:.85rem;">⚠️ Slot minggu ini hampir penuh</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section>
+    <div class="wrap">
+      <p class="section-tag">Harga Transparan</p>
+      <h2 class="section-title reveal">Pilih Paket yang<br>Sesuai Kebutuhanmu</h2>
+      <p class="section-sub reveal">Harga jelas, tidak ada biaya tersembunyi. Investasi terjangkau, hasil maksimal.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <h3>Landing Page</h3>
+          <div class="price-amount">Rp 999.000</div>
+          <p class="price-desc">Satu halaman, fokus konversi, siap iklan</p>
+          <ul class="price-features">
+            <li>1 halaman full responsive</li>
+            <li>Desain fokus conversion</li>
+            <li>Form leads / WhatsApp button</li>
+            <li>Loading cepat (&lt;2 detik)</li>
+            <li>Siap Google & Meta Ads</li>
+            <li>Revisi gratis 2×</li>
+            <li>Domain & hosting setup</li>
+          </ul>
+          <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih" class="price-cta ghost" target="_blank">Mulai Sekarang</a>
+        </div>
+
+        <div class="price-card featured reveal">
+          <div class="featured-badge">⭐ PALING POPULER</div>
+          <h3>Company Profile</h3>
+          <div class="price-amount">Rp 2.500.000</div>
+          <p class="price-desc">Website multi-halaman profesional & lengkap</p>
+          <ul class="price-features">
+            <li>5–7 halaman profesional</li>
+            <li>Desain custom premium</li>
+            <li>Blog / artikel</li>
+            <li>SEO on-page dasar</li>
+            <li>WhatsApp live chat</li>
+            <li>Google Analytics setup</li>
+            <li>Revisi gratis 3×</li>
+            <li>Support 30 hari pasca launch</li>
+          </ul>
+          <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih" class="price-cta" target="_blank">Pesan Sekarang →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="solution-bg">
+    <div class="wrap">
+      <p class="section-tag">Cara Kerja</p>
+      <h2 class="section-title reveal" style="text-align:center">Dari Konsultasi ke Website<br>dalam 3 Langkah</h2>
+      <p class="section-sub reveal" style="margin:0 auto 52px; text-align:center">Prosesnya simple, transparan, dan anti ribet.</p>
+
+      <div class="process-track">
+        <div class="proc-step reveal">
+          <div class="proc-circle">1</div>
+          <h3>Konsultasi Gratis</h3>
+          <p>Cerita bisnismu, tujuan website, dan target audiens. Gratis, tanpa komitmen.</p>
+        </div>
+        <div class="proc-step reveal">
+          <div class="proc-circle">2</div>
+          <h3>Desain & Revisi</h3>
+          <p>Tim kami desain, kamu review. Revisi sampai kamu benar-benar puas.</p>
+        </div>
+        <div class="proc-step reveal">
+          <div class="proc-circle">3</div>
+          <h3>Website Launch 🚀</h3>
+          <p>Website live, siap tarik leads, dan siap jalan iklan hari itu juga.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="wrap">
+      <p class="section-tag">Testimoni Klien</p>
+      <h2 class="section-title reveal">Apa Kata Mereka yang<br>Sudah Pakai WebKilat?</h2>
+
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Website jadi super cepat dan langsung kami pakai buat iklan Google. Dalam seminggu pertama sudah ada 12 leads masuk. Sebelumnya? Nyaris nol.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">A</div>
+            <div>
+              <div class="testi-name">Andini Kusuma</div>
+              <div class="testi-role">Owner Klinik Cantika, Jakarta</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Lebih banyak leads setelah pakai landing page dari WebKilat. Tim responsif, revisi cepat, harga transparan. Tidak nyesal sama sekali!</p>
+          <div class="testi-author">
+            <div class="testi-avatar">R</div>
+            <div>
+              <div class="testi-name">Rizky Firmansyah</div>
+              <div class="testi-role">Owner Jasa Renovasi Bandung</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Sudah coba developer lain sebelumnya, lama dan ribet. WebKilat selesai dalam 2 hari, hasilnya jauh lebih bagus dan konversinya kerasa banget.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">S</div>
+            <div>
+              <div class="testi-name">Siti Rahayu</div>
+              <div class="testi-role">Founder Catering Berkah, Surabaya</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal">
+          <div class="stars">★★★★★</div>
+          <div class="testi-quote">"</div>
+          <p class="testi-text">Investasi terbaik buat bisnis kami. ROI dari iklan langsung kerasa setelah landing page dibikin ulang. Sangat recommended untuk UMKM!</p>
+          <div class="testi-author">
+            <div class="testi-avatar">B</div>
+            <div>
+              <div class="testi-name">Budi Santoso</div>
+              <div class="testi-role">Owner Toko Material Bangunan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post-testi mid CTA -->
+      <div style="margin-top:48px;text-align:center;padding:32px;background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);border-radius:16px;" class="reveal">
+        <p style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px;">Mau hasil seperti mereka?</p>
+        <p style="font-size:.9rem;color:#64748b;margin-bottom:20px;">Mulai dengan konsultasi gratis — tanpa komitmen, tanpa tekanan.</p>
+        <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih"
+           class="btn-primary" target="_blank" style="font-size:1rem;padding:14px 30px;">
+          💬 Chat WhatsApp Sekarang
+        </a>
+        <p style="color:#f97316;font-weight:700;font-size:.82rem;margin-top:12px;">⚠️ Slot minggu ini hampir penuh</p>
+      </div>
+
+    </div>
+  </section>
+  <section id="cta" class="cta-section">
+    <div class="cta-inner">
+      <p class="section-tag">Ayo Mulai</p>
+      <h2 class="section-title reveal">Siap Punya Website<br>yang Benar-benar Menghasilkan?</h2>
+      <p class="reveal">Konsultasi pertama gratis. Tidak ada tekanan, tidak ada komitmen.
+        Cerita bisnismu dan kami bantu carikan solusi terbaik.</p>
+
+      <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih" class="btn-primary" style="font-size:1.05rem; padding:17px 38px;" target="_blank">
+        💬 Konsultasi Gratis via WhatsApp
+      </a>
+
+      <p style="margin-top:14px; font-size:13px; opacity:.7;">
+        ⚡ Respon cepat &nbsp;•&nbsp; Tanpa ribet &nbsp;•&nbsp; Konsultasi gratis
+      </p>
+      <p style="color:#f97316; font-weight:700; font-size:.88rem; margin-top:8px;">
+        ⚠️ Slot terbatas minggu ini
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <strong>WebKilat</strong> · Jasa Landing Page Cepat & Siap Iklan</p>
+    <p style="margin-top:6px; color:#334155">Dibuat dengan ❤️ untuk UMKM Indonesia</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/6208979797996?text=Halo%2C%20saya%20tertarik%20jasa%20pembuatan%20website.%0A%0ABoleh%20info%3A%0A-%20Harga%20detail%0A-%20Contoh%20hasil%0A-%20Proses%20pengerjaan%0A%0ATerima%20kasih"
+     class="wa-float" target="_blank">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Chat WhatsApp
+  </a>
+
+</body>
+</html>
